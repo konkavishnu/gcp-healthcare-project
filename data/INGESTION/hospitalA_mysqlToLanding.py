@@ -167,7 +167,7 @@ def extract_and_save_to_landing(table, load_type, watermark_col):
 # Function to Read Config File from GCS
 def read_config_file():
     df = spark.read.csv(CONFIG_FILE_PATH, header=True)
-    log_event("INFO", "✅ Successfully read the config file")
+    log_event("INFO", "✅ Successfully read the config file") # --> the function is above 
     return df
 
 # read config file

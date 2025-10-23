@@ -16,7 +16,7 @@ SELECT
     SUM(t.Amount) AS Amount
 FROM `avd-databricks-demo.silver_dataset.transactions` t
 LEFT JOIN `avd-databricks-demo.silver_dataset.providers` p 
-    ON SPLIT(p.ProviderID, "-")[SAFE_OFFSET(1)] = t.ProviderID
+    ON SPLIT(p.ProviderID, "-")[SAFE_OFFSET(1)] = t.ProviderID --> here we take the 2nd part of the splitted p.providerId
 LEFT JOIN `avd-databricks-demo.silver_dataset.departments` d 
     ON SPLIT(d.Dept_Id, "-")[SAFE_OFFSET(0)] = p.DeptID
 WHERE t.is_quarantined = FALSE AND d.Name IS NOT NULL

@@ -16,14 +16,14 @@ TRUNCATE TABLE `avd-databricks-demo.silver_dataset.departments`;
 -- 3. full load by Inserting merged Data 
 INSERT INTO `avd-databricks-demo.silver_dataset.departments`
 SELECT DISTINCT 
-    CONCAT(deptid, '-', datasource) AS Dept_Id,
+    CONCAT(deptid, '-', datasource) AS Dept_Id, ---> here we are creating a CDM or surrogate key
     deptid AS SRC_Dept_Id,
     Name,
     datasource,
     CASE 
         WHEN deptid IS NULL OR Name IS NULL THEN TRUE 
         ELSE FALSE 
-    END AS is_quarantined
+    END AS is_quarantined ---> with the CASE above we are creating a new col "is_quarantined" to check null values , this will enhance data quality
 FROM (
     SELECT DISTINCT *, 'hosa' AS datasource FROM `avd-databricks-demo.bronze_dataset.departments_ha`
     UNION ALL
